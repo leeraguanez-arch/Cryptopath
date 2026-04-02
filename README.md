@@ -1,2 +1,0 @@
-# Cryptopath
-GEMATMW

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoPath Puzzle</title>
+<style>
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    background:#f4f6f9;
+}
+header{
+    background:#1f2d3d;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+.tabs{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    padding:15px;
+    background:white;
+    border-bottom:1px solid #ddd;
+    flex-wrap:wrap;
+}
+.tabs a{
+    text-decoration:none;
+    padding:12px 18px;
+    background:#dbe4f0;
+    color:black;
+    border-radius:8px;
+    font-weight:bold;
+}
+.page{
+    display:none;
+    padding:30px;
+}
+.page:target{
+    display:block;
+}
+#home{
+    display:block;
+}
+body:has(.page:target) #home{
+    display:none;
+}
+.card{
+    background:white;
+    max-width:1000px;
+    margin:auto;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.graph{
+    position:relative;
+    width:900px;
+    height:480px;
+    background:#eef3fa;
+    margin:auto;
+    border-radius:20px;
+    overflow:hidden;
+}
+.node{
+    position:absolute;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#3498db;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    font-weight:bold;
+    z-index:2;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+.triangle-container {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.triangle-shape {
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 30px solid gray;
+    z-index: -1;
+    transition: border-bottom-color 0.3s;
+}
+.triangle-container.correct .triangle-shape {
+    border-bottom-color: #2ecc71 !important;
+}
+.triangle-container.wrong .triangle-shape {
+    border-bottom-color: #e74c3c !important;
+}
+.triangle-text {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    pointer-events: none;
+}
+input, button{
+    padding:10px;
+    margin-top:10px;
+}
+.result{
+    margin-top:15px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>CryptoPath Puzzle</h1>
+    <h3>Group 2: Castaneda, Guanez, Mabalot, Martin, Mauricio</h3>
+    <p>An Interactive Website for Mathematics in the Modern World</p>
+</header>
+
+<div class="tabs">
+    <a href="#home">Home</a>
+    <a href="#path">Shortest Path</a>
+    <a href="#crypto">Cryptography</a>
+    <a href="#logic">Logic & Reasoning</a>
+</div>
+
+<div id="home" class="page">
+    <div class="card">
+        <h2>Welcome to CryptoPath Puzzle</h2>
+        <p>Select a tab above to explore the three different mathematical concepts.</p>
+    </div>
+</div>
+
+<div id="path" class="page">
+    <div class="card">
+        <h2>Shortest Path Challenge</h2>
+        <p>Correct shortest route: Home → A → B → C → E → School</p>
+
+        <div class="graph">
+            <svg style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none;">
+                <line x1="75" y1="135" x2="535" y2="75" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="75" y1="135" x2="355" y2="215" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="75" y1="135" x2="185" y2="355" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="185" y1="355" x2="355" y2="215" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="185" y1="355" x2="415" y2="415" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="355" y1="215" x2="535" y2="75" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="355" y1="215" x2="415" y2="415" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="355" y1="215" x2="585" y2="285" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="415" y1="415" x2="585" y2="285" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="535" y1="75" x2="585" y2="285" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="535" y1="75" x2="785" y2="185" stroke="#bdc3c7" stroke-width="4"/>
+                <line x1="585" y1="285" x2="785" y2="185" stroke="#bdc3c7" stroke-width="4"/>
+            </svg>
+
+            <div class="node" style="top:100px; left:40px; background:#e67e22;">Home</div>
+            <div class="node" style="top:320px; left:150px;">A</div>
+            <div class="node" style="top:180px; left:320px;">B</div>
+            <div class="node" style="top:380px; left:380px;">C</div>
+            <div class="node" style="top:40px; left:500px;">D</div>
+            <div class="node" style="top:250px; left:550px;">E</div>
+            <div class="node" style="top:150px; left:750px; background:#9b59b6;">School</div>
+
+            <div class="triangle-container" style="top:90px; left:287px;" onclick="markPath(this,false)">
+                <div class="triangle-shape"></div><span class="triangle-text">11</span>
+            </div>
+            <div class="triangle-container" style="top:160px; left:197px;" onclick="markPath(this,false)">
+                <div class="triangle-shape"></div><span class="triangle-text">10</span>
+            </div>
+            <div class="triangle-container" style="top:230px; left:112px;" onclick="markPath(this,true)">
+                <div class="triangle-shape"></div><span class="triangle-text">8</span>
+            </div>
+            <div class="triangle-container" style="top:270px; left:252px;" onclick="markPath(this,true)">
+                <div class="triangle-shape"></div><span class="triangle-text">1</span>
+            </div>
+            <div class="triangle-container" style="top:370px; left:282px;" onclick="markPath(this,false)">
+                <div class="triangle-shape"></div><span class="triangle-text">10</span>
+            </div>
+            <div class="triangle-container" style="top:130px; left:427px;" onclick="markPath(this,false)">
+                <div class="triangle-shape"></div><span class="triangle-text">4</span>
+            </div>
+            <div class="triangle-container" style="top:300px; left:367px;" onclick="markPath(this,true)">
+                <div class="triangle-shape"></div><span class="triangle-text">2</span>
+            </div>
+            <div class="triangle-container" style="top:235px; left:452px;" onclick="markPath(this,false)">
+                <div class="triangle-shape"></div><span class="triangle-text">4</span>
+            </div>
+            <div class="triangle-container" style="top:335px; left:482px;" onclick="markPath(this,true)">
+                <div class="triangle-shape"></div><span class="triangle-text">1</span>
+            </div>
+            <div class="triangle-container" style="top:165px; left:542px;" onclick="markPath(this,false)">
+                <div class="triangle-shape"></div><span class="triangle-text">3</span>
+            </div>
+            <div class="triangle-container" style="top:115px; left:642px;" onclick="markPath(this,false)">
+                <div class="triangle-shape"></div><span class="triangle-text">6</span>
+            </div>
+            <div class="triangle-container" style="top:220px; left:667px;" onclick="markPath(this,true)">
+                <div class="triangle-shape"></div><span class="triangle-text">3</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="crypto" class="page">
+    <div class="card">
+        <h2>Cryptography Mission</h2>
+        <p>Decrypt the secret message using a Caesar Cipher with a shift of 3.</p>
+        <p><strong>Encrypted Message:</strong> KHOOR</p>
+        <input type="text" id="cryptoAnswer" placeholder="Enter decoded word">
+        <button onclick="checkCrypto()">Submit</button>
+        <div class="result" id="cryptoResult"></div>
+    </div>
+</div>
+
+<div id="logic" class="page">
+    <div class="card">
+        <h2>Logic and Reasoning Puzzle</h2>
+        <ul>
+            <li>Ana was in class during the message.</li>
+            <li>Ben does not know how to encrypt messages.</li>
+            <li>Carlo studies cryptography.</li>
+        </ul>
+        <input type="text" id="logicAnswer" placeholder="Who sent the message?">
+        <button onclick="checkLogic()">Submit</button>
+        <div class="result" id="logicResult"></div>
+    </div>
+</div>
+
+<script>
+function markPath(element, isCorrect){
+    if(isCorrect){
+        element.classList.add('correct');
+        element.classList.remove('wrong');
+    } else {
+        element.classList.add('wrong');
+        element.classList.remove('correct');
+    }
+}
+
+function checkCrypto(){
+    let answer = document.getElementById('cryptoAnswer').value.toUpperCase();
+    let result = document.getElementById('cryptoResult');
+
+    if(answer === 'HELLO'){
+        result.innerHTML = 'Your answer is correct! KHOOR decrypts to HELLO.';
+        result.style.color = 'green';
+    } else {
+        result.innerHTML = 'Your answer is incorrect. Hint: shift each letter back by 3.';
+        result.style.color = 'red';
+    }
+}
+
+function checkLogic(){
+    let answer = document.getElementById('logicAnswer').value.toLowerCase();
+    let result = document.getElementById('logicResult');
+
+    if(answer === 'carlo'){
+        result.innerHTML = 'Your answer is correct! Carlo is the most likely suspect.';
+        result.style.color = 'green';
+    } else {
+        result.innerHTML = 'Your answer is incorrect. Use the clues carefully.';
+        result.style.color = 'red';
+    }
+}
+</script>
+
+</body>
+</html>
